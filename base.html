@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acme Corp — Widget Test Page</title>
+  <style>
+    /* ============================================================
+       AGGRESSIVE HOST PAGE STYLES
+       Intentionally destructive — tests Shadow DOM encapsulation.
+    ============================================================ */
+    * {
+      box-sizing: border-box !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      font-family: "Comic Sans MS", "Papyrus", cursive !important;
+      color: #1a1a2e !important;
+      line-height: 1.2 !important;
+    }
+    button {
+      background: linear-gradient(135deg, #ff0066, #ff6600) !important;
+      color: white !important;
+      border: 4px solid #ff0066 !important;
+      border-radius: 0 !important;
+      font-size: 20px !important;
+      font-weight: 900 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 4px !important;
+      padding: 20px 40px !important;
+      cursor: crosshair !important;
+      box-shadow: 8px 8px 0 #000 !important;
+      transform: skewX(-10deg) !important;
+    }
+    button:hover {
+      background: hotpink !important;
+      transform: scale(1.3) skewX(-10deg) !important;
+    }
+    input, textarea, select {
+      background: #fffb00 !important;
+      border: 3px dashed red !important;
+      color: purple !important;
+      font-size: 18px !important;
+      font-style: italic !important;
+      border-radius: 0 !important;
+      outline: 6px solid lime !important;
+      padding: 10px !important;
+    }
+    input:focus, textarea:focus {
+      background: #ff9900 !important;
+      outline: 8px double blue !important;
+    }
+    a, a:visited, a:hover {
+      color: deeppink !important;
+      text-decoration: wavy underline !important;
+      font-size: 1.3em !important;
+    }
+    h1, h2, h3, h4, h5, h6 {
+      font-family: "Impact", fantasy !important;
+      text-transform: uppercase !important;
+      letter-spacing: 6px !important;
+      color: #ff0066 !important;
+      text-shadow: 3px 3px 0 yellow, 5px 5px 0 black !important;
+    }
+    p {
+      font-size: 14px !important;
+      color: #333 !important;
+      border-left: 5px solid hotpink !important;
+      padding-left: 12px !important;
+    }
+    img {
+      filter: hue-rotate(180deg) saturate(3) !important;
+      border: 5px solid red !important;
+      border-radius: 50% !important;
+    }
+    div, section, article, aside, main, header, footer {
+      border: 1px dotted rgba(255, 0, 100, 0.15) !important;
+    }
+    ul, ol { list-style: square !important; padding-left: 30px !important; }
+    li { color: teal !important; font-size: 16px !important; }
+    table, th, td { border: 2px solid orange !important; background: rgba(255,255,0,0.1) !important; }
+    hr { border: 4px dashed crimson !important; }
+    label { color: navy !important; font-size: 20px !important; font-weight: 900 !important; }
+
+    /* ============================================================
+       PAGE LAYOUT
+    ============================================================ */
+    html, body { background: #f0f0f5; min-height: 100vh; }
+    body { display: flex !important; flex-direction: column !important; }
+
+    .page-header {
+      background: #1a1a2e;
+      padding: 20px 40px !important;
+      border-bottom: 4px solid #ff0066;
+    }
+    .page-header h1 { color: white !important; font-size: 24px; }
+    .page-header nav { margin-top: 12px !important; display: flex; gap: 24px; }
+    .page-header nav a {
+      color: #aaa !important;
+      font-size: 14px !important;
+      text-decoration: none !important;
+    }
+
+    .page-body { display: flex !important; flex: 1; }
+
+    .sidebar {
+      width: 220px;
+      background: #e8e8f0;
+      padding: 24px !important;
+      border-right: 2px solid #ccc;
+      flex-shrink: 0;
+    }
+    .sidebar h3 { font-size: 12px; margin-bottom: 14px !important; }
+    .sidebar ul { list-style: none !important; padding-left: 0 !important; }
+    .sidebar li {
+      padding: 7px 0 !important;
+      border-bottom: 1px solid #ddd;
+      font-size: 12px !important;
+      color: #555 !important;
+      cursor: pointer;
+    }
+    .sidebar li:hover { color: #ff0066 !important; }
+
+    .main-content { flex: 1; padding: 32px 40px !important; overflow-y: auto; }
+
+    .blog-post {
+      background: white;
+      border-radius: 8px;
+      padding: 28px !important;
+      margin-bottom: 28px !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+    .blog-post h2 { font-size: 20px; margin-bottom: 10px !important; color: #1a1a2e !important; }
+    .blog-post .meta {
+      font-size: 12px !important; color: #999 !important;
+      margin-bottom: 14px !important; border-left: none !important;
+    }
+    .blog-post p { margin-bottom: 10px !important; color: #444 !important; }
+    .blog-post a { font-size: inherit !important; }
+    .blog-post .tags { margin-top: 14px !important; display: flex; gap: 8px; flex-wrap: wrap; }
+    .blog-post .tag {
+      background: #f0f0f5; border-radius: 4px;
+      padding: 4px 10px !important; font-size: 12px !important;
+      color: #666 !important; border: none !important;
+    }
+
+    /* ── Widget zone ── */
+    .widget-zone {
+      background: white;
+      border-radius: 8px;
+      padding: 24px !important;
+      margin-bottom: 28px !important;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      border: 2px dashed #ccc !important;
+    }
+    .widget-zone > .zone-label {
+      display: block;
+      font-size: 11px !important;
+      font-family: monospace !important;
+      color: #999 !important;
+      text-transform: uppercase !important;
+      letter-spacing: 2px !important;
+      margin-bottom: 16px !important;
+      border-left: none !important;
+    }
+
+    .page-footer {
+      background: #1a1a2e;
+      padding: 16px 40px !important;
+      color: #aaa !important;
+      font-size: 12px !important;
+      border-top: 4px solid #ff0066;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-header">
+    <h1>Acme Corp Blog</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Products</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <div class="page-body">
+
+    <aside class="sidebar">
+      <h3>Categories</h3>
+      <ul>
+        <li>Technology</li>
+        <li>Design</li>
+        <li>Business</li>
+        <li>Engineering</li>
+        <li>Open Source</li>
+      </ul>
+      <h3 style="margin-top: 20px !important;">Recent Posts</h3>
+      <ul>
+        <li>Shadow DOM deep dive</li>
+        <li>Web Components 2025</li>
+        <li>CSS encapsulation</li>
+      </ul>
+      <h3 style="margin-top: 20px !important;">Tags</h3>
+      <ul>
+        <li>#webcomponents</li>
+        <li>#shadowdom</li>
+        <li>#widgets</li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+
+      <!-- Blog post 1 -->
+      <article class="blog-post">
+        <h2>Understanding Shadow DOM Encapsulation</h2>
+        <p class="meta">March 11, 2026 &bull; 5 min read &bull; by A. Developer</p>
+        <p>
+          Shadow DOM provides full encapsulation for a component's HTML, CSS, and JavaScript.
+          The host page's aggressive styles cannot bleed in — and the widget's styles cannot
+          leak out. This page intentionally applies <code>* { font-family: "Comic Sans MS" !important }</code>
+          and other destructive rules to every element.
+        </p>
+        <p>
+          If the widget below looks correct (normal fonts, clean inputs, unstyled buttons),
+          Shadow DOM encapsulation is working. If it inherits Comic Sans and neon borders,
+          encapsulation is broken.
+        </p>
+        <div class="tags">
+          <span class="tag">Shadow DOM</span>
+          <span class="tag">Web Components</span>
+          <span class="tag">Encapsulation</span>
+        </div>
+      </article>
+
+      <!-- ══════════════════════════════════════════════════════════
+           WIDGET ZONE — single widget per page
+           Populated server-side (or via query param) by server.js
+      ══════════════════════════════════════════════════════════ -->
+      <div class="widget-zone" id="widget-zone">
+        <span class="zone-label">&#x25C6; Elfsight Widget</span>
+
+        <!-- ═══════════════════════════════════════
+             WIDGET EMBED — injected by server.js
+        ═══════════════════════════════════════ -->
+        {{WIDGET_EMBED}}
+
+      </div>
+
+      <!-- Blog post 2 -->
+      <article class="blog-post">
+        <h2>Common Pitfalls When Embedding Third-Party Widgets</h2>
+        <p class="meta">March 10, 2026 &bull; 4 min read &bull; by A. Developer</p>
+        <p>
+          Many embedding failures come from CSS specificity wars. The host page applies
+          <code>!important</code> rules via a wildcard selector and the widget never had a chance.
+          Shadow DOM sidesteps this entirely — the shadow boundary is impenetrable to external sheets.
+        </p>
+        <p>
+          JavaScript is a different story. Code on the host page can still call methods on a custom
+          element, and events with <code>composed: true</code> will cross the boundary. Always know
+          your threat model when shipping embeddable widgets.
+        </p>
+        <div class="tags">
+          <span class="tag">Pitfalls</span>
+          <span class="tag">!important</span>
+          <span class="tag">Events</span>
+        </div>
+      </article>
+
+      <!-- Blog post 3 -->
+      <article class="blog-post">
+        <h2>How to Test Your Widget's CSS Isolation</h2>
+        <p class="meta">March 9, 2026 &bull; 3 min read &bull; by A. Developer</p>
+        <p>
+          Open two tabs with the same widget ID — one for the stable build, one for the
+          Shadow DOM dev build — using the same URL pattern:
+        </p>
+        <ul>
+          <li><code>/?id=&lt;widget-id&gt;</code></li>
+        </ul>
+        <p>
+          Compare how the widget looks on this intentionally hostile page. Any style leak from
+          the host page means Shadow DOM is not yet protecting that property.
+        </p>
+        <div class="tags">
+          <span class="tag">Testing</span>
+          <span class="tag">DevTools</span>
+          <span class="tag">Side-by-side</span>
+        </div>
+      </article>
+
+    </main>
+  </div>
+
+  <footer class="page-footer">
+    &copy; 2026 Acme Corp &mdash; Shadow DOM Test Playground
+  </footer>
+
+  <!-- Aggressive host-page JS to stress-test widget encapsulation -->
+  <script>
+    // Dynamically inject more hostile CSS after page load
+    var s = document.createElement('style');
+    s.textContent = [
+      '* { outline: 1px solid rgba(255,0,0,0.06) !important; }',
+      'input { background-color: #fffde7 !important; }',
+      'button { border-radius: 0 !important; }',
+      'p { letter-spacing: 3px !important; }',
+    ].join('\n');
+    document.head.appendChild(s);
+
+    // MutationObserver that tries to restyle anything added to the DOM
+    new MutationObserver(function(mutations) {
+      mutations.forEach(function(m) {
+        m.addedNodes.forEach(function(node) {
+          if (node.nodeType === 1) {
+            if (node.style) node.style.fontFamily = '';
+          }
+        });
+      });
+    }).observe(document.body, { childList: true, subtree: true });
+  </script>
+
+</body>
+</html>
