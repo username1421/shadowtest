@@ -171,6 +171,77 @@
       border-top: 4px solid #ff0066;
       text-align: center;
     }
+
+    /* ============================================================
+       MOBILE SIDEBAR TRAY
+    ============================================================ */
+    .sidebar-toggle {
+      display: none !important;
+      position: fixed !important;
+      bottom: 24px !important;
+      right: 24px !important;
+      z-index: 1000 !important;
+      width: 52px !important;
+      height: 52px !important;
+      border-radius: 50% !important;
+      background: #1a1a2e !important;
+      border: 3px solid #ff0066 !important;
+      cursor: pointer !important;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+      padding: 0 !important;
+      transform: none !important;
+      font-size: 22px !important;
+      font-weight: normal !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
+      color: white !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    .sidebar-toggle:hover {
+      background: #ff0066 !important;
+      transform: scale(1.08) !important;
+    }
+    .sidebar-overlay {
+      display: none;
+      position: fixed !important;
+      inset: 0 !important;
+      background: rgba(0,0,0,0.4) !important;
+      z-index: 998 !important;
+    }
+    .sidebar-overlay.open { display: block; }
+
+    @media (max-width: 600px) {
+      .sidebar {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        height: 100% !important;
+        width: 260px !important;
+        z-index: 999 !important;
+        transform: translateX(-100%) !important;
+        transition: transform 0.28s ease !important;
+        overflow-y: auto !important;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.2) !important;
+        padding-top: 60px !important;
+      }
+      .sidebar.open {
+        transform: translateX(0) !important;
+      }
+      .sidebar-toggle {
+        display: flex !important;
+      }
+      .main-content {
+        padding: 20px 16px !important;
+      }
+      .page-header {
+        padding: 14px 16px !important;
+      }
+      .page-header nav {
+        gap: 14px !important;
+        flex-wrap: wrap !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -185,9 +256,12 @@
     </nav>
   </header>
 
+  <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu">&#9776;</button>
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
   <div class="page-body">
 
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <h3>Categories</h3>
       <ul>
         <li>Technology</li>
@@ -297,6 +371,28 @@
   <footer class="page-footer">
     &copy; 2026 Acme Corp &mdash; Shadow DOM Test Playground
   </footer>
+
+  <script>
+    (function() {
+      var toggle = document.getElementById('sidebarToggle');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('sidebarOverlay');
+      function open() {
+        sidebar.classList.add('open');
+        overlay.classList.add('open');
+        toggle.innerHTML = '&#x2715;';
+      }
+      function close() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('open');
+        toggle.innerHTML = '&#9776;';
+      }
+      toggle.addEventListener('click', function() {
+        sidebar.classList.contains('open') ? close() : open();
+      });
+      overlay.addEventListener('click', close);
+    })();
+  </script>
 
   <!-- Aggressive host-page JS to stress-test widget encapsulation -->
   <script>
