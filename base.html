@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,6 +13,7 @@
     div {
       font: inherit !important;
     }
+
     * {
       box-sizing: border-box !important;
       margin: 0 !important;
@@ -20,6 +22,7 @@
       color: #1a1a2e !important;
       line-height: 1.2 !important;
     }
+
     button {
       background: linear-gradient(135deg, #ff0066, #ff6600) !important;
       color: white !important;
@@ -34,11 +37,15 @@
       box-shadow: 8px 8px 0 #000 !important;
       transform: skewX(-10deg) !important;
     }
+
     button:hover {
       background: hotpink !important;
       transform: scale(1.3) skewX(-10deg) !important;
     }
-    input, textarea, select {
+
+    input,
+    textarea,
+    select {
       background: #fffb00 !important;
       border: 3px dashed red !important;
       color: purple !important;
@@ -48,62 +55,126 @@
       outline: 6px solid lime !important;
       padding: 10px !important;
     }
-    input:focus, textarea:focus {
+
+    input:focus,
+    textarea:focus {
       background: #ff9900 !important;
       outline: 8px double blue !important;
     }
-    a, a:visited, a:hover {
+
+    a,
+    a:visited,
+    a:hover {
       color: deeppink !important;
       text-decoration: wavy underline !important;
       font-size: 1.3em !important;
     }
-    h1, h2, h3, h4, h5, h6 {
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
       font-family: "Impact", fantasy !important;
       text-transform: uppercase !important;
       letter-spacing: 6px !important;
       color: #ff0066 !important;
       text-shadow: 3px 3px 0 yellow, 5px 5px 0 black !important;
     }
+
     p {
       font-size: 14px !important;
       color: #333 !important;
       border-left: 5px solid hotpink !important;
       padding-left: 12px !important;
     }
+
     img {
       filter: hue-rotate(180deg) saturate(3) !important;
       border: 5px solid red !important;
       border-radius: 50% !important;
     }
-    div, section, article, aside, main, header, footer {
+
+    div,
+    section,
+    article,
+    aside,
+    main,
+    header,
+    footer {
       border: 1px dotted rgba(255, 0, 100, 0.15) !important;
     }
-    ul, ol { list-style: square !important; padding-left: 30px !important; }
-    li { color: teal !important; font-size: 16px !important; }
-    table, th, td { border: 2px solid orange !important; background: rgba(255,255,0,0.1) !important; }
-    hr { border: 4px dashed crimson !important; }
-    label { color: navy !important; font-size: 20px !important; font-weight: 900 !important; }
+
+    ul,
+    ol {
+      list-style: square !important;
+      padding-left: 30px !important;
+    }
+
+    li {
+      color: teal !important;
+      font-size: 16px !important;
+    }
+
+    table,
+    th,
+    td {
+      border: 2px solid orange !important;
+      background: rgba(255, 255, 0, 0.1) !important;
+    }
+
+    hr {
+      border: 4px dashed crimson !important;
+    }
+
+    label {
+      color: navy !important;
+      font-size: 20px !important;
+      font-weight: 900 !important;
+    }
 
     /* ============================================================
        PAGE LAYOUT
     ============================================================ */
-    html, body { background: #f0f0f5; min-height: 100vh; }
-    body { display: flex !important; flex-direction: column !important; }
+    html,
+    body {
+      background: #f0f0f5;
+      min-height: 100vh;
+    }
+
+    body {
+      display: flex !important;
+      flex-direction: column !important;
+    }
 
     .page-header {
       background: #1a1a2e;
       padding: 20px 40px !important;
       border-bottom: 4px solid #ff0066;
     }
-    .page-header h1 { color: white !important; font-size: 24px; }
-    .page-header nav { margin-top: 12px !important; display: flex; gap: 24px; }
+
+    .page-header h1 {
+      color: white !important;
+      font-size: 24px;
+    }
+
+    .page-header nav {
+      margin-top: 12px !important;
+      display: flex;
+      gap: 24px;
+    }
+
     .page-header nav a {
       color: #aaa !important;
       font-size: 14px !important;
       text-decoration: none !important;
     }
 
-    .page-body { display: flex !important; flex: 1; }
+    .page-body {
+      display: flex !important;
+      flex: 1;
+    }
 
     .sidebar {
       width: 220px;
@@ -112,8 +183,17 @@
       border-right: 2px solid #ccc;
       flex-shrink: 0;
     }
-    .sidebar h3 { font-size: 12px; margin-bottom: 14px !important; }
-    .sidebar ul { list-style: none !important; padding-left: 0 !important; }
+
+    .sidebar h3 {
+      font-size: 12px;
+      margin-bottom: 14px !important;
+    }
+
+    .sidebar ul {
+      list-style: none !important;
+      padding-left: 0 !important;
+    }
+
     .sidebar li {
       padding: 7px 0 !important;
       border-bottom: 1px solid #ddd;
@@ -121,29 +201,61 @@
       color: #555 !important;
       cursor: pointer;
     }
-    .sidebar li:hover { color: #ff0066 !important; }
 
-    .main-content { flex: 1; padding: 32px 40px !important; overflow-y: auto; }
+    .sidebar li:hover {
+      color: #ff0066 !important;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 32px 40px !important;
+      overflow-y: auto;
+    }
 
     .blog-post {
       background: white;
       border-radius: 8px;
       padding: 28px !important;
       margin-bottom: 28px !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     }
-    .blog-post h2 { font-size: 20px; margin-bottom: 10px !important; color: #1a1a2e !important; }
+
+    .blog-post h2 {
+      font-size: 20px;
+      margin-bottom: 10px !important;
+      color: #1a1a2e !important;
+    }
+
     .blog-post .meta {
-      font-size: 12px !important; color: #999 !important;
-      margin-bottom: 14px !important; border-left: none !important;
+      font-size: 12px !important;
+      color: #999 !important;
+      margin-bottom: 14px !important;
+      border-left: none !important;
     }
-    .blog-post p { margin-bottom: 10px !important; color: #444 !important; }
-    .blog-post a { font-size: inherit !important; }
-    .blog-post .tags { margin-top: 14px !important; display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .blog-post p {
+      margin-bottom: 10px !important;
+      color: #444 !important;
+    }
+
+    .blog-post a {
+      font-size: inherit !important;
+    }
+
+    .blog-post .tags {
+      margin-top: 14px !important;
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
     .blog-post .tag {
-      background: #f0f0f5; border-radius: 4px;
-      padding: 4px 10px !important; font-size: 12px !important;
-      color: #666 !important; border: none !important;
+      background: #f0f0f5;
+      border-radius: 4px;
+      padding: 4px 10px !important;
+      font-size: 12px !important;
+      color: #666 !important;
+      border: none !important;
     }
 
     /* ── Widget zone ── */
@@ -152,10 +264,11 @@
       border-radius: 8px;
       padding: 24px !important;
       margin-bottom: 28px !important;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
       border: 2px dashed #ccc !important;
     }
-    .widget-zone > .zone-label {
+
+    .widget-zone>.zone-label {
       display: block;
       font-size: 11px !important;
       font-family: monospace !important;
@@ -190,7 +303,7 @@
       background: #1a1a2e !important;
       border: 3px solid #ff0066 !important;
       cursor: pointer !important;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.3) !important;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3) !important;
       padding: 0 !important;
       transform: none !important;
       font-size: 22px !important;
@@ -201,18 +314,23 @@
       align-items: center !important;
       justify-content: center !important;
     }
+
     .sidebar-toggle:hover {
       background: #ff0066 !important;
       transform: scale(1.08) !important;
     }
+
     .sidebar-overlay {
       display: none;
       position: fixed !important;
       inset: 0 !important;
-      background: rgba(0,0,0,0.4) !important;
+      background: rgba(0, 0, 0, 0.4) !important;
       z-index: 998 !important;
     }
-    .sidebar-overlay.open { display: block; }
+
+    .sidebar-overlay.open {
+      display: block;
+    }
 
     @media (max-width: 600px) {
       .sidebar {
@@ -225,25 +343,120 @@
         transform: translateX(-100%) !important;
         transition: transform 0.28s ease !important;
         overflow-y: auto !important;
-        box-shadow: 4px 0 20px rgba(0,0,0,0.2) !important;
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2) !important;
         padding-top: 60px !important;
       }
+
       .sidebar.open {
         transform: translateX(0) !important;
       }
+
       .sidebar-toggle {
         display: flex !important;
       }
+
       .main-content {
         padding: 20px 16px !important;
       }
+
       .page-header {
         padding: 14px 16px !important;
       }
+
       .page-header nav {
         gap: 14px !important;
         flex-wrap: wrap !important;
       }
+    }
+
+    html,
+    body,
+    div,
+    span,
+    applet,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    a,
+    abbr,
+    acronym,
+    address,
+    big,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    s,
+    samp,
+    small,
+    strike,
+    strong,
+    sub,
+    sup,
+    tt,
+    var,
+    b,
+    u,
+    i,
+    center,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    article,
+    aside,
+    canvas,
+    details,
+    embed,
+    figure,
+    figcaption,
+    footer,
+    header,
+    hgroup,
+    menu,
+    nav,
+    output,
+    ruby,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      font-size: 100%;
+      font: inherit;
+      vertical-align: baseline;
+      word-wrap: break-word;
     }
 
     #trigger {
@@ -254,6 +467,7 @@
     }
   </style>
 </head>
+
 <body>
 
   <header class="page-header">
@@ -266,7 +480,8 @@
     </nav>
   </header>
 
-  <button id="trigger" onclick="console.log('trigger button clicked')">button with id "trigger" to attach open triggers to</button>
+  <button id="trigger" onclick="console.log('trigger button clicked')">button with id "trigger" to attach open triggers
+    to</button>
   <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle menu">&#9776;</button>
   <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
@@ -384,7 +599,7 @@
   </footer>
 
   <script>
-    (function() {
+    (function () {
       var toggle = document.getElementById('sidebarToggle');
       var sidebar = document.getElementById('sidebar');
       var overlay = document.getElementById('sidebarOverlay');
@@ -398,7 +613,7 @@
         overlay.classList.remove('open');
         toggle.innerHTML = '&#9776;';
       }
-      toggle.addEventListener('click', function() {
+      toggle.addEventListener('click', function () {
         sidebar.classList.contains('open') ? close() : open();
       });
       overlay.addEventListener('click', close);
@@ -418,9 +633,9 @@
     document.head.appendChild(s);
 
     // MutationObserver that tries to restyle anything added to the DOM
-    new MutationObserver(function(mutations) {
-      mutations.forEach(function(m) {
-        m.addedNodes.forEach(function(node) {
+    new MutationObserver(function (mutations) {
+      mutations.forEach(function (m) {
+        m.addedNodes.forEach(function (node) {
           if (node.nodeType === 1) {
             if (node.style) node.style.fontFamily = '';
           }
@@ -430,4 +645,5 @@
   </script>
 
 </body>
+
 </html>
