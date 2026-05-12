@@ -544,8 +544,32 @@
         <!-- ═══════════════════════════════════════
              WIDGET EMBED — injected by server.js
         ═══════════════════════════════════════ -->
-        {{WIDGET_EMBED}}
+        <!-- Elfsight All-in-One Chat | <stable> -->
+        <script src="https://elfsightcdn.com/platform.js" async></script>
+        <div id="widget-root" data-elfsight-app-lazy></div>
+        <script>
+          (() => {
+            const widgetRoot = document.querySelector("#widget-root");
 
+            if (!widgetRoot) {
+              console.warn('Widget root not found');
+
+              return;
+            }
+
+            const params = new URLSearchParams(location.search);
+            const id = params.get("id");
+
+            if (!id) {
+              console.warn("No widget ID provided");
+              widgetRoot.innerHTML = `<p style="color:#aaa; font-size:13px; border:none; padding:0; margin:0;">No widget ID provided. Add <code>?id=&lt;widget-id&gt;</code> to the URL.</p>`;
+
+              return;
+            }
+
+            widgetRoot.classList.add(`elfsight-app-${id}`);
+          })()
+        </script>
       </div>
 
       <!-- Blog post 2 -->
@@ -599,25 +623,25 @@
   </footer>
 
   <script>
-    (function () {
-      var toggle = document.getElementById('sidebarToggle');
-      var sidebar = document.getElementById('sidebar');
-      var overlay = document.getElementById('sidebarOverlay');
-      function open() {
-        sidebar.classList.add('open');
-        overlay.classList.add('open');
-        toggle.innerHTML = '&#x2715;';
-      }
-      function close() {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('open');
-        toggle.innerHTML = '&#9776;';
-      }
-      toggle.addEventListener('click', function () {
-        sidebar.classList.contains('open') ? close() : open();
-      });
-      overlay.addEventListener('click', close);
-    })();
+      (function () {
+        var toggle = document.getElementById('sidebarToggle');
+        var sidebar = document.getElementById('sidebar');
+        var overlay = document.getElementById('sidebarOverlay');
+        function open() {
+          sidebar.classList.add('open');
+          overlay.classList.add('open');
+          toggle.innerHTML = '&#x2715;';
+        }
+        function close() {
+          sidebar.classList.remove('open');
+          overlay.classList.remove('open');
+          toggle.innerHTML = '&#9776;';
+        }
+        toggle.addEventListener('click', function () {
+          sidebar.classList.contains('open') ? close() : open();
+        });
+        overlay.addEventListener('click', close);
+      })();
   </script>
 
   <!-- Aggressive host-page JS to stress-test widget encapsulation -->
