@@ -465,6 +465,376 @@
       padding: 5px !important;
       margin: auto !important;
     }
+
+    /* ============================================================
+       STACKING-CONTEXT TRAP TOGGLES
+       Each class applied to .widget-zone (or ancestor) reproduces
+       a different way the host page can trap/clip widget modals.
+       Toggle via the floating panel (top-right).
+    ============================================================ */
+    .trap-zindex {
+      position: relative !important;
+      z-index: 0 !important;
+    }
+
+    .trap-transform {
+      transform: translateZ(0) !important;
+    }
+
+    .trap-filter {
+      filter: blur(0) !important;
+    }
+
+    .trap-backdrop-filter {
+      backdrop-filter: blur(2px) !important;
+    }
+
+    .trap-opacity {
+      opacity: 0.999 !important;
+    }
+
+    .trap-will-change {
+      will-change: transform !important;
+    }
+
+    .trap-isolation {
+      isolation: isolate !important;
+    }
+
+    .trap-contain-paint {
+      contain: paint !important;
+    }
+
+    .trap-contain-layout {
+      contain: layout !important;
+    }
+
+    .trap-perspective {
+      perspective: 1000px !important;
+    }
+
+    .trap-mix-blend {
+      mix-blend-mode: multiply !important;
+    }
+
+    .trap-mask {
+      -webkit-mask-image: linear-gradient(#000, #000) !important;
+      mask-image: linear-gradient(#000, #000) !important;
+    }
+
+    .trap-clip-path {
+      clip-path: inset(0) !important;
+    }
+
+    .trap-sticky {
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 0 !important;
+    }
+
+    .trap-fixed-ancestor {
+      position: fixed !important;
+      inset: 80px 40px 80px 260px !important;
+      overflow: auto !important;
+      z-index: 1 !important;
+    }
+
+    /* Applied to .main-content — clips overflowing modal */
+    .trap-overflow-hidden {
+      overflow: hidden !important;
+    }
+
+    .trap-overflow-clip {
+      overflow: clip !important;
+    }
+
+    /* Applied to .blog-post siblings — forces them above widget zone */
+    .trap-siblings-above .blog-post {
+      position: relative !important;
+      z-index: 2 !important;
+    }
+
+    /* ============================================================
+       TRAP CONTROL PANEL
+    ============================================================ */
+    #trap-panel {
+      position: fixed !important;
+      bottom: 12px !important;
+      left: 12px !important;
+      z-index: 2147483000 !important;
+      width: 300px !important;
+      max-height: 85vh !important;
+      display: flex !important;
+      flex-direction: column-reverse !important;
+      background: #1a1a2e !important;
+      color: #fff !important;
+      border: 2px solid #ff0066 !important;
+      border-radius: 6px !important;
+      font-family: -apple-system, "Segoe UI", sans-serif !important;
+      font-size: 13px !important;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    #trap-panel * {
+      font-family: -apple-system, "Segoe UI", sans-serif !important;
+      color: #fff !important;
+      font-size: 13px !important;
+      line-height: 1.4 !important;
+      letter-spacing: 0 !important;
+      text-transform: none !important;
+      text-shadow: none !important;
+      box-sizing: border-box !important;
+    }
+
+    #trap-panel .trap-header {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      padding: 5px 7px !important;
+      gap: 5px;
+      border-top: 1px solid #333 !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      background: #15152a !important;
+      border-radius: 0 0 4px 4px !important;
+    }
+
+    #trap-panel .trap-title {
+      font-weight: 700 !important;
+      color: #ff0066 !important;
+      font-size: 12px !important;
+      text-transform: uppercase !important;
+      letter-spacing: 1px !important;
+    }
+
+    #trap-panel .trap-active-count {
+      background: #ff0066 !important;
+      color: #fff !important;
+      border-radius: 10px !important;
+      padding: 1px 8px !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      margin-left: 6px !important;
+    }
+
+    #trap-panel .trap-active-count:empty {
+      display: none !important;
+    }
+
+    #trap-panel .trap-min-btn {
+      background: transparent !important;
+      border: 1px solid #555 !important;
+      color: #fff !important;
+      border-radius: 3px !important;
+      width: 22px !important;
+      height: 22px !important;
+      padding: 0 !important;
+      font-size: 14px !important;
+      line-height: 1 !important;
+      cursor: pointer !important;
+      transform: none !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+    }
+
+    #trap-panel .trap-min-btn:hover {
+      background: #ff0066 !important;
+      border-color: #ff0066 !important;
+      transform: none !important;
+    }
+
+    #trap-panel .trap-body {
+      overflow-y: auto !important;
+      padding: 10px 12px !important;
+      flex: 1 !important;
+    }
+
+    #trap-panel.minimized {
+      width: auto !important;
+      max-height: none !important;
+    }
+
+    #trap-panel.minimized .trap-body {
+      display: none !important;
+    }
+
+    #trap-panel.minimized .trap-header {
+      border-top: none !important;
+      border-radius: 4px !important;
+    }
+
+    #trap-panel .trap-intro {
+      font-size: 12px !important;
+      color: #bbb !important;
+      margin-bottom: 12px !important;
+      padding-bottom: 10px !important;
+      border-bottom: 1px solid #333 !important;
+    }
+
+    #trap-panel .scenario {
+      border: 1px solid #333 !important;
+      border-radius: 4px !important;
+      padding: 8px 10px !important;
+      margin-bottom: 8px !important;
+      cursor: pointer !important;
+      transition: border-color 0.15s !important;
+    }
+
+    #trap-panel .scenario:hover {
+      border-color: #ff0066 !important;
+    }
+
+    #trap-panel .scenario.active {
+      border-color: #ff0066 !important;
+      background: #2a1530 !important;
+    }
+
+    #trap-panel .scenario label {
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 8px !important;
+      cursor: pointer !important;
+      font-weight: normal !important;
+      border: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    #trap-panel .scenario-name {
+      font-weight: 700 !important;
+      color: #fff !important;
+      font-size: 13px !important;
+    }
+
+    #trap-panel .scenario.active .scenario-name {
+      color: #ff0066 !important;
+    }
+
+    #trap-panel .scenario-desc {
+      font-size: 11px !important;
+      color: #aaa !important;
+      margin-top: 4px !important;
+      line-height: 1.45 !important;
+    }
+
+    #trap-panel input[type="checkbox"] {
+      width: 16px !important;
+      height: 16px !important;
+      margin: 1px 0 0 0 !important;
+      padding: 0 !important;
+      background: #fff !important;
+      border: 1px solid #888 !important;
+      outline: none !important;
+      accent-color: #ff0066 !important;
+      cursor: pointer !important;
+      flex-shrink: 0 !important;
+    }
+
+    #trap-panel .scenario-text {
+      flex: 1 !important;
+    }
+
+    #trap-panel .trap-actions {
+      display: flex !important;
+      gap: 6px !important;
+      margin-top: 10px !important;
+    }
+
+    #trap-panel button.trap-action {
+      flex: 1 !important;
+      background: #2a2a44 !important;
+      color: #fff !important;
+      border: 1px solid #444 !important;
+      border-radius: 3px !important;
+      padding: 6px 8px !important;
+      font-size: 11px !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.5px !important;
+      text-transform: uppercase !important;
+      cursor: pointer !important;
+      transform: none !important;
+      box-shadow: none !important;
+      margin: 0 !important;
+    }
+
+    #trap-panel button.trap-action.primary {
+      background: #ff0066 !important;
+      border-color: #ff0066 !important;
+    }
+
+    #trap-panel button.trap-action:hover {
+      background: #3a3a5a !important;
+      transform: none !important;
+    }
+
+    #trap-panel button.trap-action.primary:hover {
+      background: #cc0052 !important;
+      border-color: #cc0052 !important;
+      transform: none !important;
+    }
+
+    #trap-panel .advanced-toggle {
+      margin-top: 14px !important;
+      padding-top: 10px !important;
+      border-top: 1px solid #333 !important;
+      color: #888 !important;
+      font-size: 11px !important;
+      cursor: pointer !important;
+      user-select: none !important;
+      text-transform: uppercase !important;
+      letter-spacing: 1px !important;
+    }
+
+    #trap-panel .advanced-toggle:hover {
+      color: #ff0066 !important;
+    }
+
+    #trap-panel .advanced {
+      display: none !important;
+      margin-top: 10px !important;
+    }
+
+    #trap-panel.show-advanced .advanced {
+      display: block !important;
+    }
+
+    #trap-panel .trap-group {
+      margin-top: 10px !important;
+      padding-top: 8px !important;
+      border-top: 1px dashed #333 !important;
+    }
+
+    #trap-panel .trap-group h5 {
+      color: #888 !important;
+      font-size: 10px !important;
+      letter-spacing: 1px !important;
+      text-transform: uppercase !important;
+      margin: 0 0 6px 0 !important;
+      font-weight: 700 !important;
+      border: none !important;
+    }
+
+    #trap-panel .trap-group label {
+      display: flex !important;
+      align-items: center !important;
+      gap: 6px !important;
+      padding: 2px 0 !important;
+      cursor: pointer !important;
+      font-weight: normal !important;
+      font-size: 12px !important;
+      border: none !important;
+    }
+
+    #trap-panel .trap-group label:hover {
+      color: #ff0066 !important;
+    }
+
+    #trap-panel .trap-group code {
+      font-family: monospace !important;
+      font-size: 11px !important;
+      color: #ffb3d1 !important;
+      background: transparent !important;
+    }
   </style>
 </head>
 
@@ -621,6 +991,319 @@
   <footer class="page-footer">
     &copy; 2026 Acme Corp &mdash; Shadow DOM Test Playground
   </footer>
+
+  <aside id="trap-panel">
+    <div class="trap-header" id="trap-header">
+      <div>
+        <span class="trap-title">Widget trap tester</span>
+        <span class="trap-active-count" id="trap-active-count"></span>
+      </div>
+      <button type="button" class="trap-min-btn" id="trap-min-btn" title="Minimize">&minus;</button>
+    </div>
+
+    <div class="trap-body">
+      <div class="trap-intro">
+        Each scenario wraps the widget in a tricky container.
+        Turn one on, open the widget's popup or modal, and check it shows on top and is fully visible.
+      </div>
+
+      <div class="scenario" data-scenarios='[{"target":"widget-zone","trap":"trap-zindex"},{"target":"main-content","trap":"trap-siblings-above"}]'>
+        <label>
+          <input type="checkbox">
+          <span class="scenario-text">
+            <span class="scenario-name">Trapped behind blog posts</span>
+            <span class="scenario-desc">Blog posts sit on top of the widget area. Modal/popup must still appear above them, not hidden underneath.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="scenario" data-scenarios='[{"target":"widget-zone","trap":"trap-transform"}]'>
+        <label>
+          <input type="checkbox">
+          <span class="scenario-text">
+            <span class="scenario-name">Widget area uses transform</span>
+            <span class="scenario-desc">Common when host page animates or uses GPU. Often traps fixed-position popups inside the container.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="scenario" data-scenarios='[{"target":"widget-zone","trap":"trap-filter"}]'>
+        <label>
+          <input type="checkbox">
+          <span class="scenario-text">
+            <span class="scenario-name">Widget area uses a CSS filter</span>
+            <span class="scenario-desc">Filters (blur, drop-shadow, etc) trap descendants. Modal/popup may be hidden or mis-positioned.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="scenario" data-scenarios='[{"target":"widget-zone","trap":"trap-opacity"}]'>
+        <label>
+          <input type="checkbox">
+          <span class="scenario-text">
+            <span class="scenario-name">Widget area is semi-transparent</span>
+            <span class="scenario-desc">Any opacity below 1 traps descendants. Check popup still floats above other content.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="scenario" data-scenarios='[{"target":"widget-zone","trap":"trap-isolation"}]'>
+        <label>
+          <input type="checkbox">
+          <span class="scenario-text">
+            <span class="scenario-name">Widget area is isolated</span>
+            <span class="scenario-desc">Used by host pages to prevent style/stacking bleed. Often hides modals behind sibling content.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="scenario" data-scenarios='[{"target":"main-content","trap":"trap-overflow-hidden"}]'>
+        <label>
+          <input type="checkbox">
+          <span class="scenario-text">
+            <span class="scenario-name">Page content area clips overflow</span>
+            <span class="scenario-desc">Parent has overflow: hidden. Popup that extends outside the container may be cut off at the edge.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="scenario" data-scenarios='[{"target":"main-content","trap":"trap-transform"}]'>
+        <label>
+          <input type="checkbox">
+          <span class="scenario-text">
+            <span class="scenario-name">Parent container uses transform</span>
+            <span class="scenario-desc">Whole content area is transformed. Fixed-position modals inside the widget may stick to the wrong area instead of the viewport.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="scenario" data-scenarios='[{"target":"widget-zone","trap":"trap-contain-paint"}]'>
+        <label>
+          <input type="checkbox">
+          <span class="scenario-text">
+            <span class="scenario-name">Widget area uses CSS containment</span>
+            <span class="scenario-desc">Modern performance optimization. Acts like overflow: hidden and a stacking context combined.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="scenario" data-scenarios='[{"target":"widget-zone","trap":"trap-clip-path"},{"target":"widget-zone","trap":"trap-mask"}]'>
+        <label>
+          <input type="checkbox">
+          <span class="scenario-text">
+            <span class="scenario-name">Widget area is clipped/masked</span>
+            <span class="scenario-desc">clip-path and mask both clip children. Popup edges that extend outside may be cut off.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="scenario" data-scenarios='[
+        {"target":"widget-zone","trap":"trap-zindex"},
+        {"target":"widget-zone","trap":"trap-transform"},
+        {"target":"widget-zone","trap":"trap-filter"},
+        {"target":"widget-zone","trap":"trap-isolation"},
+        {"target":"widget-zone","trap":"trap-contain-paint"},
+        {"target":"main-content","trap":"trap-overflow-hidden"},
+        {"target":"main-content","trap":"trap-siblings-above"}
+      ]'>
+        <label>
+          <input type="checkbox">
+          <span class="scenario-text">
+            <span class="scenario-name">&#x1F480; Everything at once</span>
+            <span class="scenario-desc">Worst-case combo. If widget works here, it survives anywhere.</span>
+          </span>
+        </label>
+      </div>
+
+      <div class="trap-actions">
+        <button type="button" class="trap-action" id="trap-reset">Clear all</button>
+      </div>
+
+      <div class="advanced-toggle" id="advanced-toggle">+ Advanced (raw CSS triggers)</div>
+
+      <div class="advanced">
+        <div class="trap-group" data-target="widget-zone">
+          <h5>On .widget-zone</h5>
+          <label><input type="checkbox" data-trap="trap-zindex"> <code>position+z-index:0</code></label>
+          <label><input type="checkbox" data-trap="trap-transform"> <code>transform: translateZ(0)</code></label>
+          <label><input type="checkbox" data-trap="trap-filter"> <code>filter: blur(0)</code></label>
+          <label><input type="checkbox" data-trap="trap-backdrop-filter"> <code>backdrop-filter</code></label>
+          <label><input type="checkbox" data-trap="trap-opacity"> <code>opacity: 0.999</code></label>
+          <label><input type="checkbox" data-trap="trap-will-change"> <code>will-change: transform</code></label>
+          <label><input type="checkbox" data-trap="trap-isolation"> <code>isolation: isolate</code></label>
+          <label><input type="checkbox" data-trap="trap-contain-paint"> <code>contain: paint</code></label>
+          <label><input type="checkbox" data-trap="trap-contain-layout"> <code>contain: layout</code></label>
+          <label><input type="checkbox" data-trap="trap-perspective"> <code>perspective: 1000px</code></label>
+          <label><input type="checkbox" data-trap="trap-mix-blend"> <code>mix-blend-mode</code></label>
+          <label><input type="checkbox" data-trap="trap-mask"> <code>mask-image</code></label>
+          <label><input type="checkbox" data-trap="trap-clip-path"> <code>clip-path: inset(0)</code></label>
+          <label><input type="checkbox" data-trap="trap-sticky"> <code>position: sticky+z-index</code></label>
+        </div>
+
+        <div class="trap-group" data-target="main-content">
+          <h5>On .main-content (ancestor)</h5>
+          <label><input type="checkbox" data-trap="trap-transform"> <code>transform: translateZ(0)</code></label>
+          <label><input type="checkbox" data-trap="trap-filter"> <code>filter: blur(0)</code></label>
+          <label><input type="checkbox" data-trap="trap-overflow-hidden"> <code>overflow: hidden</code></label>
+          <label><input type="checkbox" data-trap="trap-overflow-clip"> <code>overflow: clip</code></label>
+          <label><input type="checkbox" data-trap="trap-contain-paint"> <code>contain: paint</code></label>
+          <label><input type="checkbox" data-trap="trap-isolation"> <code>isolation: isolate</code></label>
+          <label><input type="checkbox" data-trap="trap-siblings-above"> <code>.blog-post z-index:2</code></label>
+        </div>
+
+        <div class="trap-group" data-target="page-body">
+          <h5>On .page-body (ancestor)</h5>
+          <label><input type="checkbox" data-trap="trap-transform"> <code>transform: translateZ(0)</code></label>
+          <label><input type="checkbox" data-trap="trap-filter"> <code>filter: blur(0)</code></label>
+          <label><input type="checkbox" data-trap="trap-overflow-hidden"> <code>overflow: hidden</code></label>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <script>
+    (function () {
+      var STORAGE_KEY = 'shadowtest:traps';
+      var MIN_KEY = 'shadowtest:traps-min';
+      var ADV_KEY = 'shadowtest:traps-adv';
+      var targets = {
+        'widget-zone': document.getElementById('widget-zone'),
+        'main-content': document.querySelector('.main-content'),
+        'page-body': document.querySelector('.page-body'),
+      };
+      var panel = document.getElementById('trap-panel');
+      var advBoxes = panel.querySelectorAll('.trap-group input[type="checkbox"][data-trap]');
+      var scenarios = panel.querySelectorAll('.scenario');
+      var countBadge = document.getElementById('trap-active-count');
+
+      function advKey(box) {
+        var group = box.closest('.trap-group');
+        return group.getAttribute('data-target') + '::' + box.getAttribute('data-trap');
+      }
+
+      function setTrap(target, cls, on) {
+        var el = targets[target];
+        if (!el) return;
+        el.classList.toggle(cls, on);
+      }
+
+      function applyAdvBox(box) {
+        var group = box.closest('.trap-group');
+        setTrap(group.getAttribute('data-target'), box.getAttribute('data-trap'), box.checked);
+      }
+
+      function applyScenario(scenario) {
+        var on = scenario.querySelector('input[type="checkbox"]').checked;
+        var list = JSON.parse(scenario.getAttribute('data-scenarios'));
+        list.forEach(function (t) { setTrap(t.target, t.trap, on); });
+        scenario.classList.toggle('active', on);
+      }
+
+      function syncAdvFromDom() {
+        advBoxes.forEach(function (b) {
+          var group = b.closest('.trap-group');
+          var el = targets[group.getAttribute('data-target')];
+          b.checked = !!(el && el.classList.contains(b.getAttribute('data-trap')));
+        });
+      }
+
+      function updateCount() {
+        var n = 0;
+        Object.keys(targets).forEach(function (k) {
+          var el = targets[k];
+          if (!el) return;
+          el.classList.forEach(function (c) { if (c.indexOf('trap-') === 0) n++; });
+        });
+        countBadge.textContent = n ? n : '';
+      }
+
+      function save() {
+        var state = { scenarios: [], adv: {} };
+        scenarios.forEach(function (s, i) {
+          if (s.querySelector('input').checked) state.scenarios.push(i);
+        });
+        advBoxes.forEach(function (b) { if (b.checked) state.adv[advKey(b)] = true; });
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
+      }
+
+      function load() {
+        var state = { scenarios: [], adv: {} };
+        try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || state; } catch (e) {}
+        (state.scenarios || []).forEach(function (i) {
+          var s = scenarios[i];
+          if (!s) return;
+          s.querySelector('input').checked = true;
+          applyScenario(s);
+        });
+        Object.keys(state.adv || {}).forEach(function (k) {
+          advBoxes.forEach(function (b) {
+            if (advKey(b) === k) { b.checked = true; applyAdvBox(b); }
+          });
+        });
+        syncAdvFromDom();
+        updateCount();
+      }
+
+      scenarios.forEach(function (s) {
+        s.querySelector('input').addEventListener('change', function () {
+          applyScenario(s);
+          syncAdvFromDom();
+          updateCount();
+          save();
+        });
+      });
+
+      advBoxes.forEach(function (b) {
+        b.addEventListener('change', function () {
+          applyAdvBox(b);
+          updateCount();
+          save();
+        });
+      });
+
+      document.getElementById('trap-reset').addEventListener('click', function () {
+        scenarios.forEach(function (s) {
+          var input = s.querySelector('input');
+          if (input.checked) { input.checked = false; applyScenario(s); }
+        });
+        advBoxes.forEach(function (b) {
+          if (b.checked) { b.checked = false; applyAdvBox(b); }
+        });
+        updateCount();
+        save();
+      });
+
+      var minBtn = document.getElementById('trap-min-btn');
+      var header = document.getElementById('trap-header');
+      function setMin(min) {
+        panel.classList.toggle('minimized', min);
+        minBtn.innerHTML = min ? '&#9776;' : '&minus;';
+        minBtn.title = min ? 'Expand' : 'Minimize';
+        try { localStorage.setItem(MIN_KEY, min ? '1' : '0'); } catch (e) {}
+      }
+      minBtn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        setMin(!panel.classList.contains('minimized'));
+      });
+      header.addEventListener('click', function () {
+        if (panel.classList.contains('minimized')) setMin(false);
+      });
+      setMin(localStorage.getItem(MIN_KEY) === '1');
+
+      var advToggle = document.getElementById('advanced-toggle');
+      function setAdv(on) {
+        panel.classList.toggle('show-advanced', on);
+        advToggle.textContent = (on ? '−' : '+') + ' Advanced (raw CSS triggers)';
+        try { localStorage.setItem(ADV_KEY, on ? '1' : '0'); } catch (e) {}
+      }
+      advToggle.addEventListener('click', function () {
+        setAdv(!panel.classList.contains('show-advanced'));
+      });
+      setAdv(localStorage.getItem(ADV_KEY) === '1');
+
+      load();
+    })();
+  </script>
 
   <script>
       (function () {
