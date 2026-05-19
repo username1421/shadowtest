@@ -559,8 +559,6 @@
     ============================================================ */
     #trap-panel {
       position: fixed !important;
-      bottom: 12px !important;
-      left: 12px !important;
       z-index: 2147483000 !important;
       width: 300px !important;
       max-height: 85vh !important;
@@ -573,6 +571,10 @@
       font-family: -apple-system, "Segoe UI", sans-serif !important;
       font-size: 13px !important;
       box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4) !important;
+    }
+
+    #trap-panel.grow-down {
+      flex-direction: column !important;
     }
 
     #trap-panel * {
@@ -597,6 +599,12 @@
       user-select: none !important;
       background: #15152a !important;
       border-radius: 0 0 4px 4px !important;
+    }
+
+    #trap-panel.grow-down .trap-header {
+      border-top: none !important;
+      border-bottom: 1px solid #333 !important;
+      border-radius: 4px 4px 0 0 !important;
     }
 
     #trap-panel .trap-title {
@@ -650,17 +658,126 @@
     }
 
     #trap-panel.minimized {
-      width: auto !important;
-      max-height: none !important;
+      width: 36px !important;
+      height: 36px !important;
+      max-height: 36px !important;
+      padding: 0 !important;
+      border-radius: 50% !important;
+      border-width: 2px !important;
+      overflow: visible !important;
+      cursor: grab !important;
+      animation: trap-bug-pulse 1.8s ease-in-out infinite !important;
     }
 
-    #trap-panel.minimized .trap-body {
+    #trap-panel.minimized:hover,
+    #trap-panel.minimized.dragging {
+      animation: none !important;
+    }
+
+    #trap-panel.minimized.dragging {
+      cursor: grabbing !important;
+      transition: none !important;
+    }
+
+    @keyframes trap-bug-pulse {
+      0%, 100% {
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 0 0 rgba(255, 0, 102, 0.55);
+        transform: scale(1);
+      }
+      50% {
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 0 10px rgba(255, 0, 102, 0);
+        transform: scale(1.08);
+      }
+    }
+
+    #trap-panel.minimized .trap-bug-icon {
+      animation: trap-bug-wiggle 1.8s ease-in-out infinite !important;
+    }
+
+    #trap-panel.minimized:hover .trap-bug-icon,
+    #trap-panel.minimized.dragging .trap-bug-icon {
+      animation: none !important;
+    }
+
+    @keyframes trap-bug-wiggle {
+      0%, 60%, 100% { transform: rotate(0deg); }
+      70% { transform: rotate(-12deg); }
+      80% { transform: rotate(10deg); }
+      90% { transform: rotate(-6deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #trap-panel.minimized,
+      #trap-panel.minimized .trap-bug-icon {
+        animation: none !important;
+      }
+    }
+
+    #trap-panel.minimized .trap-body,
+    #trap-panel.minimized .trap-title,
+    #trap-panel.minimized .trap-min-btn,
+    #trap-panel.minimized .trap-drag-handle,
+    #trap-panel.minimized .trap-header *:not(.trap-bug-icon) {
       display: none !important;
     }
 
     #trap-panel.minimized .trap-header {
-      border-top: none !important;
-      border-radius: 4px !important;
+      border: none !important;
+      border-radius: 50% !important;
+      padding: 0 !important;
+      background: transparent !important;
+      width: 100% !important;
+      height: 100% !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+    }
+
+    #trap-panel .trap-bug-icon {
+      display: none !important;
+      font-size: 18px !important;
+      line-height: 1 !important;
+      pointer-events: none !important;
+    }
+
+    #trap-panel.minimized .trap-bug-icon {
+      display: block !important;
+    }
+
+    #trap-panel.minimized .trap-active-count {
+      position: absolute !important;
+      top: -4px !important;
+      right: -4px !important;
+      padding: 0 5px !important;
+      min-width: 16px !important;
+      height: 16px !important;
+      line-height: 16px !important;
+      font-size: 10px !important;
+      border-radius: 8px !important;
+      margin: 0 !important;
+      text-align: center !important;
+    }
+
+    #trap-panel .trap-drag-handle {
+      cursor: grab !important;
+      padding: 4px 6px !important;
+      margin-right: 4px !important;
+      color: #888 !important;
+      font-size: 14px !important;
+      line-height: 1 !important;
+      user-select: none !important;
+    }
+
+    #trap-panel .trap-drag-handle:hover {
+      color: #ff0066 !important;
+    }
+
+    #trap-panel.dragging .trap-drag-handle {
+      cursor: grabbing !important;
+    }
+
+    #trap-panel.dragging {
+      transition: none !important;
+      user-select: none !important;
     }
 
     #trap-panel .trap-intro {
@@ -994,7 +1111,9 @@
 
   <aside id="trap-panel">
     <div class="trap-header" id="trap-header">
-      <div>
+      <span class="trap-bug-icon" aria-hidden="true">&#x1F41B;</span>
+      <div style="display:flex;align-items:center;flex:1;min-width:0;">
+        <span class="trap-drag-handle" id="trap-drag-handle" title="Drag to move">&#x2630;</span>
         <span class="trap-title">Widget trap tester</span>
         <span class="trap-active-count" id="trap-active-count"></span>
       </div>
@@ -1275,20 +1394,114 @@
 
       var minBtn = document.getElementById('trap-min-btn');
       var header = document.getElementById('trap-header');
+      var dragHandle = document.getElementById('trap-drag-handle');
+      var POS_KEY = 'shadowtest:traps-pos';
+
       function setMin(min) {
-        panel.classList.toggle('minimized', min);
-        minBtn.innerHTML = min ? '&#9776;' : '&minus;';
-        minBtn.title = min ? 'Expand' : 'Minimize';
+        if (!min) {
+          var before = panel.getBoundingClientRect();
+          var growDown = before.top < window.innerHeight / 2;
+          panel.classList.toggle('grow-down', growDown);
+          panel.classList.remove('minimized');
+          var after = panel.getBoundingClientRect();
+          var newX = before.left;
+          var newY = growDown ? before.top : before.bottom - after.height;
+          applyPos(newX, newY);
+          savePos();
+        } else {
+          panel.classList.add('minimized');
+        }
+        minBtn.innerHTML = '&minus;';
+        minBtn.title = 'Minimize';
         try { localStorage.setItem(MIN_KEY, min ? '1' : '0'); } catch (e) {}
       }
       minBtn.addEventListener('click', function (e) {
         e.stopPropagation();
-        setMin(!panel.classList.contains('minimized'));
+        setMin(true);
       });
-      header.addEventListener('click', function () {
-        if (panel.classList.contains('minimized')) setMin(false);
+
+      function applyPos(x, y) {
+        var rect = panel.getBoundingClientRect();
+        var w = rect.width, h = rect.height;
+        var maxX = window.innerWidth - w;
+        var maxY = window.innerHeight - h;
+        x = Math.max(0, Math.min(x, maxX));
+        y = Math.max(0, Math.min(y, maxY));
+        panel.style.setProperty('left', x + 'px', 'important');
+        panel.style.setProperty('top', y + 'px', 'important');
+        panel.style.setProperty('right', 'auto', 'important');
+        panel.style.setProperty('bottom', 'auto', 'important');
+      }
+
+      function loadPos() {
+        var pos = null;
+        try { pos = JSON.parse(localStorage.getItem(POS_KEY) || 'null'); } catch (e) {}
+        if (pos && typeof pos.x === 'number' && typeof pos.y === 'number') {
+          applyPos(pos.x, pos.y);
+        } else {
+          var rect = panel.getBoundingClientRect();
+          applyPos(12, window.innerHeight - rect.height - 12);
+        }
+      }
+
+      function savePos() {
+        var rect = panel.getBoundingClientRect();
+        try {
+          localStorage.setItem(POS_KEY, JSON.stringify({ x: rect.left, y: rect.top }));
+        } catch (e) {}
+      }
+
+      var dragState = null;
+      function onPointerDown(e) {
+        if (e.button !== 0 && e.pointerType === 'mouse') return;
+        var rect = panel.getBoundingClientRect();
+        dragState = {
+          offX: e.clientX - rect.left,
+          offY: e.clientY - rect.top,
+          moved: false,
+          startX: e.clientX,
+          startY: e.clientY,
+        };
+        panel.classList.add('dragging');
+        e.preventDefault();
+        try { e.target.setPointerCapture(e.pointerId); } catch (err) {}
+      }
+      function onPointerMove(e) {
+        if (!dragState) return;
+        if (!dragState.moved &&
+          Math.abs(e.clientX - dragState.startX) + Math.abs(e.clientY - dragState.startY) < 4) return;
+        dragState.moved = true;
+        applyPos(e.clientX - dragState.offX, e.clientY - dragState.offY);
+      }
+      function onPointerUp(e) {
+        if (!dragState) return;
+        var moved = dragState.moved;
+        dragState = null;
+        panel.classList.remove('dragging');
+        if (moved) {
+          savePos();
+        } else if (panel.classList.contains('minimized')) {
+          setMin(false);
+        }
+      }
+
+      dragHandle.addEventListener('pointerdown', onPointerDown);
+      header.addEventListener('pointerdown', function (e) {
+        if (!panel.classList.contains('minimized')) return;
+        onPointerDown(e);
       });
+      window.addEventListener('pointermove', onPointerMove);
+      window.addEventListener('pointerup', onPointerUp);
+      window.addEventListener('pointercancel', onPointerUp);
+
+      window.addEventListener('resize', function () {
+        var rect = panel.getBoundingClientRect();
+        applyPos(rect.left, rect.top);
+        savePos();
+      });
+
       setMin(localStorage.getItem(MIN_KEY) === '1');
+      loadPos();
 
       var advToggle = document.getElementById('advanced-toggle');
       function setAdv(on) {
