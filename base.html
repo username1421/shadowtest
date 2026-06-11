@@ -134,6 +134,17 @@
       font-weight: 900 !important;
     }
 
+    body>div[class*="eapps-"] {
+      position: fixed !important;
+      top: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+
     /* ============================================================
        PAGE LAYOUT
     ============================================================ */
@@ -680,10 +691,13 @@
     }
 
     @keyframes trap-bug-pulse {
-      0%, 100% {
+
+      0%,
+      100% {
         box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 0 0 rgba(255, 0, 102, 0.55);
         transform: scale(1);
       }
+
       50% {
         box-shadow: 0 6px 24px rgba(0, 0, 0, 0.4), 0 0 0 10px rgba(255, 0, 102, 0);
         transform: scale(1.08);
@@ -700,13 +714,28 @@
     }
 
     @keyframes trap-bug-wiggle {
-      0%, 60%, 100% { transform: rotate(0deg); }
-      70% { transform: rotate(-12deg); }
-      80% { transform: rotate(10deg); }
-      90% { transform: rotate(-6deg); }
+
+      0%,
+      60%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      70% {
+        transform: rotate(-12deg);
+      }
+
+      80% {
+        transform: rotate(10deg);
+      }
+
+      90% {
+        transform: rotate(-6deg);
+      }
     }
 
     @media (prefers-reduced-motion: reduce) {
+
       #trap-panel.minimized,
       #trap-panel.minimized .trap-bug-icon {
         animation: none !important;
@@ -1126,12 +1155,14 @@
         Turn one on, open the widget's popup or modal, and check it shows on top and is fully visible.
       </div>
 
-      <div class="scenario" data-scenarios='[{"target":"widget-zone","trap":"trap-zindex"},{"target":"main-content","trap":"trap-siblings-above"}]'>
+      <div class="scenario"
+        data-scenarios='[{"target":"widget-zone","trap":"trap-zindex"},{"target":"main-content","trap":"trap-siblings-above"}]'>
         <label>
           <input type="checkbox">
           <span class="scenario-text">
             <span class="scenario-name">Trapped behind blog posts</span>
-            <span class="scenario-desc">Blog posts sit on top of the widget area. Modal/popup must still appear above them, not hidden underneath.</span>
+            <span class="scenario-desc">Blog posts sit on top of the widget area. Modal/popup must still appear above
+              them, not hidden underneath.</span>
           </span>
         </label>
       </div>
@@ -1141,7 +1172,8 @@
           <input type="checkbox">
           <span class="scenario-text">
             <span class="scenario-name">Widget area uses transform</span>
-            <span class="scenario-desc">Common when host page animates or uses GPU. Often traps fixed-position popups inside the container.</span>
+            <span class="scenario-desc">Common when host page animates or uses GPU. Often traps fixed-position popups
+              inside the container.</span>
           </span>
         </label>
       </div>
@@ -1151,7 +1183,8 @@
           <input type="checkbox">
           <span class="scenario-text">
             <span class="scenario-name">Widget area uses a CSS filter</span>
-            <span class="scenario-desc">Filters (blur, drop-shadow, etc) trap descendants. Modal/popup may be hidden or mis-positioned.</span>
+            <span class="scenario-desc">Filters (blur, drop-shadow, etc) trap descendants. Modal/popup may be hidden or
+              mis-positioned.</span>
           </span>
         </label>
       </div>
@@ -1161,7 +1194,8 @@
           <input type="checkbox">
           <span class="scenario-text">
             <span class="scenario-name">Widget area is semi-transparent</span>
-            <span class="scenario-desc">Any opacity below 1 traps descendants. Check popup still floats above other content.</span>
+            <span class="scenario-desc">Any opacity below 1 traps descendants. Check popup still floats above other
+              content.</span>
           </span>
         </label>
       </div>
@@ -1171,7 +1205,8 @@
           <input type="checkbox">
           <span class="scenario-text">
             <span class="scenario-name">Widget area is isolated</span>
-            <span class="scenario-desc">Used by host pages to prevent style/stacking bleed. Often hides modals behind sibling content.</span>
+            <span class="scenario-desc">Used by host pages to prevent style/stacking bleed. Often hides modals behind
+              sibling content.</span>
           </span>
         </label>
       </div>
@@ -1181,7 +1216,8 @@
           <input type="checkbox">
           <span class="scenario-text">
             <span class="scenario-name">Page content area clips overflow</span>
-            <span class="scenario-desc">Parent has overflow: hidden. Popup that extends outside the container may be cut off at the edge.</span>
+            <span class="scenario-desc">Parent has overflow: hidden. Popup that extends outside the container may be cut
+              off at the edge.</span>
           </span>
         </label>
       </div>
@@ -1191,7 +1227,8 @@
           <input type="checkbox">
           <span class="scenario-text">
             <span class="scenario-name">Parent container uses transform</span>
-            <span class="scenario-desc">Whole content area is transformed. Fixed-position modals inside the widget may stick to the wrong area instead of the viewport.</span>
+            <span class="scenario-desc">Whole content area is transformed. Fixed-position modals inside the widget may
+              stick to the wrong area instead of the viewport.</span>
           </span>
         </label>
       </div>
@@ -1201,17 +1238,20 @@
           <input type="checkbox">
           <span class="scenario-text">
             <span class="scenario-name">Widget area uses CSS containment</span>
-            <span class="scenario-desc">Modern performance optimization. Acts like overflow: hidden and a stacking context combined.</span>
+            <span class="scenario-desc">Modern performance optimization. Acts like overflow: hidden and a stacking
+              context combined.</span>
           </span>
         </label>
       </div>
 
-      <div class="scenario" data-scenarios='[{"target":"widget-zone","trap":"trap-clip-path"},{"target":"widget-zone","trap":"trap-mask"}]'>
+      <div class="scenario"
+        data-scenarios='[{"target":"widget-zone","trap":"trap-clip-path"},{"target":"widget-zone","trap":"trap-mask"}]'>
         <label>
           <input type="checkbox">
           <span class="scenario-text">
             <span class="scenario-name">Widget area is clipped/masked</span>
-            <span class="scenario-desc">clip-path and mask both clip children. Popup edges that extend outside may be cut off.</span>
+            <span class="scenario-desc">clip-path and mask both clip children. Popup edges that extend outside may be
+              cut off.</span>
           </span>
         </label>
       </div>
@@ -1281,263 +1321,263 @@
   </aside>
 
   <script>
-    (function () {
-      var STORAGE_KEY = 'shadowtest:traps';
-      var MIN_KEY = 'shadowtest:traps-min';
-      var ADV_KEY = 'shadowtest:traps-adv';
-      var targets = {
-        'widget-zone': document.getElementById('widget-zone'),
-        'main-content': document.querySelector('.main-content'),
-        'page-body': document.querySelector('.page-body'),
-      };
-      var panel = document.getElementById('trap-panel');
-      var advBoxes = panel.querySelectorAll('.trap-group input[type="checkbox"][data-trap]');
-      var scenarios = panel.querySelectorAll('.scenario');
-      var countBadge = document.getElementById('trap-active-count');
+      (function () {
+        var STORAGE_KEY = 'shadowtest:traps';
+        var MIN_KEY = 'shadowtest:traps-min';
+        var ADV_KEY = 'shadowtest:traps-adv';
+        var targets = {
+          'widget-zone': document.getElementById('widget-zone'),
+          'main-content': document.querySelector('.main-content'),
+          'page-body': document.querySelector('.page-body'),
+        };
+        var panel = document.getElementById('trap-panel');
+        var advBoxes = panel.querySelectorAll('.trap-group input[type="checkbox"][data-trap]');
+        var scenarios = panel.querySelectorAll('.scenario');
+        var countBadge = document.getElementById('trap-active-count');
 
-      function advKey(box) {
-        var group = box.closest('.trap-group');
-        return group.getAttribute('data-target') + '::' + box.getAttribute('data-trap');
-      }
+        function advKey(box) {
+          var group = box.closest('.trap-group');
+          return group.getAttribute('data-target') + '::' + box.getAttribute('data-trap');
+        }
 
-      function setTrap(target, cls, on) {
-        var el = targets[target];
-        if (!el) return;
-        el.classList.toggle(cls, on);
-      }
-
-      function applyAdvBox(box) {
-        var group = box.closest('.trap-group');
-        setTrap(group.getAttribute('data-target'), box.getAttribute('data-trap'), box.checked);
-      }
-
-      function applyScenario(scenario) {
-        var on = scenario.querySelector('input[type="checkbox"]').checked;
-        var list = JSON.parse(scenario.getAttribute('data-scenarios'));
-        list.forEach(function (t) { setTrap(t.target, t.trap, on); });
-        scenario.classList.toggle('active', on);
-      }
-
-      function syncAdvFromDom() {
-        advBoxes.forEach(function (b) {
-          var group = b.closest('.trap-group');
-          var el = targets[group.getAttribute('data-target')];
-          b.checked = !!(el && el.classList.contains(b.getAttribute('data-trap')));
-        });
-      }
-
-      function updateCount() {
-        var n = 0;
-        Object.keys(targets).forEach(function (k) {
-          var el = targets[k];
+        function setTrap(target, cls, on) {
+          var el = targets[target];
           if (!el) return;
-          el.classList.forEach(function (c) { if (c.indexOf('trap-') === 0) n++; });
-        });
-        countBadge.textContent = n ? n : '';
-      }
+          el.classList.toggle(cls, on);
+        }
 
-      function save() {
-        var state = { scenarios: [], adv: {} };
-        scenarios.forEach(function (s, i) {
-          if (s.querySelector('input').checked) state.scenarios.push(i);
-        });
-        advBoxes.forEach(function (b) { if (b.checked) state.adv[advKey(b)] = true; });
-        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {}
-      }
+        function applyAdvBox(box) {
+          var group = box.closest('.trap-group');
+          setTrap(group.getAttribute('data-target'), box.getAttribute('data-trap'), box.checked);
+        }
 
-      function load() {
-        var state = { scenarios: [], adv: {} };
-        try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || state; } catch (e) {}
-        (state.scenarios || []).forEach(function (i) {
-          var s = scenarios[i];
-          if (!s) return;
-          s.querySelector('input').checked = true;
-          applyScenario(s);
-        });
-        Object.keys(state.adv || {}).forEach(function (k) {
+        function applyScenario(scenario) {
+          var on = scenario.querySelector('input[type="checkbox"]').checked;
+          var list = JSON.parse(scenario.getAttribute('data-scenarios'));
+          list.forEach(function (t) { setTrap(t.target, t.trap, on); });
+          scenario.classList.toggle('active', on);
+        }
+
+        function syncAdvFromDom() {
           advBoxes.forEach(function (b) {
-            if (advKey(b) === k) { b.checked = true; applyAdvBox(b); }
+            var group = b.closest('.trap-group');
+            var el = targets[group.getAttribute('data-target')];
+            b.checked = !!(el && el.classList.contains(b.getAttribute('data-trap')));
           });
-        });
-        syncAdvFromDom();
-        updateCount();
-      }
+        }
 
-      scenarios.forEach(function (s) {
-        s.querySelector('input').addEventListener('change', function () {
-          applyScenario(s);
+        function updateCount() {
+          var n = 0;
+          Object.keys(targets).forEach(function (k) {
+            var el = targets[k];
+            if (!el) return;
+            el.classList.forEach(function (c) { if (c.indexOf('trap-') === 0) n++; });
+          });
+          countBadge.textContent = n ? n : '';
+        }
+
+        function save() {
+          var state = { scenarios: [], adv: {} };
+          scenarios.forEach(function (s, i) {
+            if (s.querySelector('input').checked) state.scenarios.push(i);
+          });
+          advBoxes.forEach(function (b) { if (b.checked) state.adv[advKey(b)] = true; });
+          try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) { }
+        }
+
+        function load() {
+          var state = { scenarios: [], adv: {} };
+          try { state = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || state; } catch (e) { }
+          (state.scenarios || []).forEach(function (i) {
+            var s = scenarios[i];
+            if (!s) return;
+            s.querySelector('input').checked = true;
+            applyScenario(s);
+          });
+          Object.keys(state.adv || {}).forEach(function (k) {
+            advBoxes.forEach(function (b) {
+              if (advKey(b) === k) { b.checked = true; applyAdvBox(b); }
+            });
+          });
           syncAdvFromDom();
           updateCount();
-          save();
-        });
-      });
+        }
 
-      advBoxes.forEach(function (b) {
-        b.addEventListener('change', function () {
-          applyAdvBox(b);
+        scenarios.forEach(function (s) {
+          s.querySelector('input').addEventListener('change', function () {
+            applyScenario(s);
+            syncAdvFromDom();
+            updateCount();
+            save();
+          });
+        });
+
+        advBoxes.forEach(function (b) {
+          b.addEventListener('change', function () {
+            applyAdvBox(b);
+            updateCount();
+            save();
+          });
+        });
+
+        document.getElementById('trap-reset').addEventListener('click', function () {
+          scenarios.forEach(function (s) {
+            var input = s.querySelector('input');
+            if (input.checked) { input.checked = false; applyScenario(s); }
+          });
+          advBoxes.forEach(function (b) {
+            if (b.checked) { b.checked = false; applyAdvBox(b); }
+          });
           updateCount();
           save();
         });
-      });
 
-      document.getElementById('trap-reset').addEventListener('click', function () {
-        scenarios.forEach(function (s) {
-          var input = s.querySelector('input');
-          if (input.checked) { input.checked = false; applyScenario(s); }
-        });
-        advBoxes.forEach(function (b) {
-          if (b.checked) { b.checked = false; applyAdvBox(b); }
-        });
-        updateCount();
-        save();
-      });
+        var minBtn = document.getElementById('trap-min-btn');
+        var header = document.getElementById('trap-header');
+        var dragHandle = document.getElementById('trap-drag-handle');
+        var POS_KEY = 'shadowtest:traps-pos';
 
-      var minBtn = document.getElementById('trap-min-btn');
-      var header = document.getElementById('trap-header');
-      var dragHandle = document.getElementById('trap-drag-handle');
-      var POS_KEY = 'shadowtest:traps-pos';
-
-      function setMin(min) {
-        if (!min) {
-          var before = panel.getBoundingClientRect();
-          var growDown = before.top < window.innerHeight / 2;
-          panel.classList.toggle('grow-down', growDown);
-          panel.classList.remove('minimized');
-          var after = panel.getBoundingClientRect();
-          var newX = before.left;
-          var newY = growDown ? before.top : before.bottom - after.height;
-          applyPos(newX, newY);
-          savePos();
-        } else {
-          panel.classList.add('minimized');
+        function setMin(min) {
+          if (!min) {
+            var before = panel.getBoundingClientRect();
+            var growDown = before.top < window.innerHeight / 2;
+            panel.classList.toggle('grow-down', growDown);
+            panel.classList.remove('minimized');
+            var after = panel.getBoundingClientRect();
+            var newX = before.left;
+            var newY = growDown ? before.top : before.bottom - after.height;
+            applyPos(newX, newY);
+            savePos();
+          } else {
+            panel.classList.add('minimized');
+          }
+          minBtn.innerHTML = '&minus;';
+          minBtn.title = 'Minimize';
+          try { localStorage.setItem(MIN_KEY, min ? '1' : '0'); } catch (e) { }
         }
-        minBtn.innerHTML = '&minus;';
-        minBtn.title = 'Minimize';
-        try { localStorage.setItem(MIN_KEY, min ? '1' : '0'); } catch (e) {}
-      }
-      minBtn.addEventListener('click', function (e) {
-        e.stopPropagation();
-        setMin(true);
-      });
+        minBtn.addEventListener('click', function (e) {
+          e.stopPropagation();
+          setMin(true);
+        });
 
-      function applyPos(x, y) {
-        var rect = panel.getBoundingClientRect();
-        var w = rect.width, h = rect.height;
-        var maxX = window.innerWidth - w;
-        var maxY = window.innerHeight - h;
-        x = Math.max(0, Math.min(x, maxX));
-        y = Math.max(0, Math.min(y, maxY));
-        panel.style.setProperty('left', x + 'px', 'important');
-        panel.style.setProperty('top', y + 'px', 'important');
-        panel.style.setProperty('right', 'auto', 'important');
-        panel.style.setProperty('bottom', 'auto', 'important');
-      }
-
-      function loadPos() {
-        var pos = null;
-        try { pos = JSON.parse(localStorage.getItem(POS_KEY) || 'null'); } catch (e) {}
-        if (pos && typeof pos.x === 'number' && typeof pos.y === 'number') {
-          applyPos(pos.x, pos.y);
-        } else {
+        function applyPos(x, y) {
           var rect = panel.getBoundingClientRect();
-          applyPos(12, window.innerHeight - rect.height - 12);
+          var w = rect.width, h = rect.height;
+          var maxX = window.innerWidth - w;
+          var maxY = window.innerHeight - h;
+          x = Math.max(0, Math.min(x, maxX));
+          y = Math.max(0, Math.min(y, maxY));
+          panel.style.setProperty('left', x + 'px', 'important');
+          panel.style.setProperty('top', y + 'px', 'important');
+          panel.style.setProperty('right', 'auto', 'important');
+          panel.style.setProperty('bottom', 'auto', 'important');
         }
-      }
 
-      function savePos() {
-        var rect = panel.getBoundingClientRect();
-        try {
-          localStorage.setItem(POS_KEY, JSON.stringify({ x: rect.left, y: rect.top }));
-        } catch (e) {}
-      }
+        function loadPos() {
+          var pos = null;
+          try { pos = JSON.parse(localStorage.getItem(POS_KEY) || 'null'); } catch (e) { }
+          if (pos && typeof pos.x === 'number' && typeof pos.y === 'number') {
+            applyPos(pos.x, pos.y);
+          } else {
+            var rect = panel.getBoundingClientRect();
+            applyPos(12, window.innerHeight - rect.height - 12);
+          }
+        }
 
-      var dragState = null;
-      function onPointerDown(e) {
-        if (e.button !== 0 && e.pointerType === 'mouse') return;
-        var rect = panel.getBoundingClientRect();
-        dragState = {
-          offX: e.clientX - rect.left,
-          offY: e.clientY - rect.top,
-          moved: false,
-          startX: e.clientX,
-          startY: e.clientY,
-        };
-        panel.classList.add('dragging');
-        e.preventDefault();
-        try { e.target.setPointerCapture(e.pointerId); } catch (err) {}
-      }
-      function onPointerMove(e) {
-        if (!dragState) return;
-        if (!dragState.moved &&
-          Math.abs(e.clientX - dragState.startX) + Math.abs(e.clientY - dragState.startY) < 4) return;
-        dragState.moved = true;
-        applyPos(e.clientX - dragState.offX, e.clientY - dragState.offY);
-      }
-      function onPointerUp(e) {
-        if (!dragState) return;
-        var moved = dragState.moved;
-        dragState = null;
-        panel.classList.remove('dragging');
-        if (moved) {
+        function savePos() {
+          var rect = panel.getBoundingClientRect();
+          try {
+            localStorage.setItem(POS_KEY, JSON.stringify({ x: rect.left, y: rect.top }));
+          } catch (e) { }
+        }
+
+        var dragState = null;
+        function onPointerDown(e) {
+          if (e.button !== 0 && e.pointerType === 'mouse') return;
+          var rect = panel.getBoundingClientRect();
+          dragState = {
+            offX: e.clientX - rect.left,
+            offY: e.clientY - rect.top,
+            moved: false,
+            startX: e.clientX,
+            startY: e.clientY,
+          };
+          panel.classList.add('dragging');
+          e.preventDefault();
+          try { e.target.setPointerCapture(e.pointerId); } catch (err) { }
+        }
+        function onPointerMove(e) {
+          if (!dragState) return;
+          if (!dragState.moved &&
+            Math.abs(e.clientX - dragState.startX) + Math.abs(e.clientY - dragState.startY) < 4) return;
+          dragState.moved = true;
+          applyPos(e.clientX - dragState.offX, e.clientY - dragState.offY);
+        }
+        function onPointerUp(e) {
+          if (!dragState) return;
+          var moved = dragState.moved;
+          dragState = null;
+          panel.classList.remove('dragging');
+          if (moved) {
+            savePos();
+          } else if (panel.classList.contains('minimized')) {
+            setMin(false);
+          }
+        }
+
+        dragHandle.addEventListener('pointerdown', onPointerDown);
+        header.addEventListener('pointerdown', function (e) {
+          if (!panel.classList.contains('minimized')) return;
+          onPointerDown(e);
+        });
+        window.addEventListener('pointermove', onPointerMove);
+        window.addEventListener('pointerup', onPointerUp);
+        window.addEventListener('pointercancel', onPointerUp);
+
+        window.addEventListener('resize', function () {
+          var rect = panel.getBoundingClientRect();
+          applyPos(rect.left, rect.top);
           savePos();
-        } else if (panel.classList.contains('minimized')) {
-          setMin(false);
+        });
+
+        setMin(localStorage.getItem(MIN_KEY) === '1');
+        loadPos();
+
+        var advToggle = document.getElementById('advanced-toggle');
+        function setAdv(on) {
+          panel.classList.toggle('show-advanced', on);
+          advToggle.textContent = (on ? '−' : '+') + ' Advanced (raw CSS triggers)';
+          try { localStorage.setItem(ADV_KEY, on ? '1' : '0'); } catch (e) { }
         }
-      }
+        advToggle.addEventListener('click', function () {
+          setAdv(!panel.classList.contains('show-advanced'));
+        });
+        setAdv(localStorage.getItem(ADV_KEY) === '1');
 
-      dragHandle.addEventListener('pointerdown', onPointerDown);
-      header.addEventListener('pointerdown', function (e) {
-        if (!panel.classList.contains('minimized')) return;
-        onPointerDown(e);
-      });
-      window.addEventListener('pointermove', onPointerMove);
-      window.addEventListener('pointerup', onPointerUp);
-      window.addEventListener('pointercancel', onPointerUp);
-
-      window.addEventListener('resize', function () {
-        var rect = panel.getBoundingClientRect();
-        applyPos(rect.left, rect.top);
-        savePos();
-      });
-
-      setMin(localStorage.getItem(MIN_KEY) === '1');
-      loadPos();
-
-      var advToggle = document.getElementById('advanced-toggle');
-      function setAdv(on) {
-        panel.classList.toggle('show-advanced', on);
-        advToggle.textContent = (on ? '−' : '+') + ' Advanced (raw CSS triggers)';
-        try { localStorage.setItem(ADV_KEY, on ? '1' : '0'); } catch (e) {}
-      }
-      advToggle.addEventListener('click', function () {
-        setAdv(!panel.classList.contains('show-advanced'));
-      });
-      setAdv(localStorage.getItem(ADV_KEY) === '1');
-
-      load();
-    })();
+        load();
+      })();
   </script>
 
   <script>
-      (function () {
-        var toggle = document.getElementById('sidebarToggle');
-        var sidebar = document.getElementById('sidebar');
-        var overlay = document.getElementById('sidebarOverlay');
-        function open() {
-          sidebar.classList.add('open');
-          overlay.classList.add('open');
-          toggle.innerHTML = '&#x2715;';
-        }
-        function close() {
-          sidebar.classList.remove('open');
-          overlay.classList.remove('open');
-          toggle.innerHTML = '&#9776;';
-        }
-        toggle.addEventListener('click', function () {
-          sidebar.classList.contains('open') ? close() : open();
-        });
-        overlay.addEventListener('click', close);
-      })();
+    (function () {
+      var toggle = document.getElementById('sidebarToggle');
+      var sidebar = document.getElementById('sidebar');
+      var overlay = document.getElementById('sidebarOverlay');
+      function open() {
+        sidebar.classList.add('open');
+        overlay.classList.add('open');
+        toggle.innerHTML = '&#x2715;';
+      }
+      function close() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('open');
+        toggle.innerHTML = '&#9776;';
+      }
+      toggle.addEventListener('click', function () {
+        sidebar.classList.contains('open') ? close() : open();
+      });
+      overlay.addEventListener('click', close);
+    })();
   </script>
 
   <!-- Aggressive host-page JS to stress-test widget encapsulation -->
