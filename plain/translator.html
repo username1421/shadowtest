@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>translator</title>
+</head>
+
+<body>
+  <script src="https://elfsightcdn.com/platform.js" async></script>
+  <div id="widget-root" data-elfsight-app-lazy></div>
+  <script>
+    (() => {
+      const widgetRoot = document.querySelector("#widget-root");
+
+      if (!widgetRoot) {
+        console.warn('Widget root not found');
+
+        return;
+      }
+
+      const params = new URLSearchParams(location.search);
+      const id = params.get("id");
+
+      if (!id) {
+        console.warn("No widget ID provided");
+        widgetRoot.innerHTML = `<p style="color:#aaa; font-size:13px; border:none; padding:0; margin:0;">No widget ID provided. Add <code>?id=&lt;widget-id&gt;</code> to the URL.</p>`;
+
+        return;
+      }
+
+      widgetRoot.classList.add(`elfsight-app-${id}`);
+
+      const links = [
+        "contentabove.html",
+        "contentbelow.html",
+        "contentnone.html",
+        "contentboth.html",
+        "translator.html"
+      ];
+
+      const wrapper = document.createElement('div');
+
+      links.forEach((link) => {
+        const anchor = document.createElement('a');
+        anchor.classList.add('shmlink');
+        anchor.href = `${link}?id=${id}`;
+        anchor.textContent = link.replace('.html', '');
+        wrapper.append(anchor);
+      });
+
+      widgetRoot.after(wrapper);
+    })()
+  </script>
+  <style>
+    .shmlink {
+      margin: 0 10px;
+    }
+  </style>
+
+  <h1>Sonnenhang Valley &amp; National Park</h1>
+
+  <p>
+    Welcome to the <strong>National Park</strong> region in summer. Many guests come for the
+    quiet trails, the long evenings, and the view from the ridge.
+  </p>
+
+  <p>
+    Please read the <em>safety instructions</em> before you <b>book</b> your stay and
+    <i>check in</i> at the desk. Our <strong>winter <em>ski</em> package</strong> includes lift
+    tickets when the snow is good.
+  </p>
+
+  <p>
+    First paragraph ends with <strong>highlight</strong> here.
+  </p>
+  <p>
+    Second paragraph starts with <strong>another</strong> highlight and continues with ordinary
+    text about the village below the pass.
+  </p>
+
+  <p>
+    The path follows the stream for a while,<br />
+    then <strong>bold after break</strong> marks the steeper section toward the hut.
+  </p>
+
+  <p>
+    Read our <a href="#trails">summer guide</a> for <strong>national park</strong> routes that
+    stay open through October. Rates start from <span class="price">49 EUR</span> per night in
+    the <strong>deluxe room</strong> when you stay two nights or more.
+  </p>
+
+  <h2>Planning your <strong>visit</strong></h2>
+
+  <ul>
+    <li>Hiking in the <strong>alpine meadow</strong> trail behind the church.</li>
+    <li>Swimming at <strong>Lake Crystal</strong> near town on warm afternoons.</li>
+    <li>Evening walks when the <strong>wildlife corridor</strong> is easiest to spot from the fence.</li>
+  </ul>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Activity</th>
+        <th>Season</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Rock climbing</strong> course with a local guide</td>
+        <td>Summer</td>
+      </tr>
+      <tr>
+        <td>Cross-country skiing on marked tracks</td>
+        <td>Winter</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <blockquote>
+    <p>
+      We protect the <strong>wildlife corridor</strong> for future generations and ask visitors
+      to stay on marked paths.
+    </p>
+  </blockquote>
+
+  <p>
+    The resort brand <span class="no-translate-demo">Arlbergerhof Premium</span> is known for
+    <strong>ski-in ski-out</strong> access in the colder months. For maps and permits, write to
+    the ranger at ranger@nationalpark.example — we usually reply within a day.
+  </p>
+
+  <p lang="de">
+    Erleben Sie den <strong>Nationalpark Hohe Tauern</strong> auf unseren geführten Touren durch
+    die Almen und Täler.
+  </p>
+
+  <shadow-translator-fixture></shadow-translator-fixture>
+
+  <p>
+    <label>
+      Search trails
+      <input type="text" placeholder="Find a trail name" />
+    </label>
+    <input type="submit" value="Search trails" />
+  </p>
+
+  <p id="more-host"></p>
+  <button type="button" id="load-more">Continue reading</button>
+
+  <p><strong>Imprint</strong></p>
+
+  <script>
+    document.getElementById('load-more')?.addEventListener('click', () => {
+      const host = document.getElementById('more-host');
+      if (!host || host.dataset.loaded) {
+        return;
+      }
+      host.dataset.loaded = '1';
+      host.innerHTML =
+        'Later in the season, explore the <strong>sunset ridge</strong> trail before dusk when the lifts have closed.';
+    });
+
+    class ShadowTranslatorFixture extends HTMLElement {
+      connectedCallback() {
+        const root = this.attachShadow({ mode: 'open' });
+        root.innerHTML =
+          '<p>From the east parking lot, cross the <strong>high pass</strong> only with a guide when the flags are red.</p>';
+      }
+    }
+
+    if (!customElements.get('shadow-translator-fixture')) {
+      customElements.define('shadow-translator-fixture', ShadowTranslatorFixture);
+    }
+  </script>
+</body>
+
+</html>
